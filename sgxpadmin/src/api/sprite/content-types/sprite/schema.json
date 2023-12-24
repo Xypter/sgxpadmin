@@ -28,8 +28,7 @@
     "author": {
       "type": "string",
       "required": true,
-      "maxLength": 36,
-      "unique": true
+      "maxLength": 30
     }
   }
 }

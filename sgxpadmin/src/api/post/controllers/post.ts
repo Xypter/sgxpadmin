@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- *  article controller
+ *  post controller
  */
 
 const { createCoreController } = require('@strapi/strapi').factories;
@@ -15,7 +15,7 @@ module.exports = createCoreController('api::post.post', ({ strapi }) => ({
 
     await Promise.all(
       data.map(async (item, index) => {
-        const article = await query.findOne({
+        const post = await query.findOne({
           where: {
             id: item.id,
           },
@@ -23,9 +23,8 @@ module.exports = createCoreController('api::post.post', ({ strapi }) => ({
         });
         
         data[index].attributes.createdBy = {
-          roles: article.createdBy.roles,
-          username: article.createdBy.username,
-          lastname: article.createdBy.lastname,
+          role: post.createdBy.user,
+          username: post.createdBy.username,
         };
       })
     );
