@@ -12,10 +12,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "content": {
-      "type": "blocks",
-      "required": true
-    },
     "title": {
       "type": "string",
       "required": true
@@ -27,6 +23,14 @@
       "allowedTypes": [
         "images"
       ]
+    },
+    "content": {
+      "type": "customField",
+      "required": true,
+      "options": {
+        "preset": "toolbar"
+      },
+      "customField": "plugin::ckeditor5.CKEditor"
     }
   }
 }
