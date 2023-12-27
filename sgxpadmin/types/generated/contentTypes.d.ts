@@ -455,6 +455,7 @@ export interface ApiSpriteSprite extends Schema.CollectionType {
       Attribute.SetMinMaxLength<{
         maxLength: 30;
       }>;
+    spritesheet: Attribute.Media & Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

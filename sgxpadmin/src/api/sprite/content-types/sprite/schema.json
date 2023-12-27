@@ -29,6 +29,14 @@
       "type": "string",
       "required": true,
       "maxLength": 30
+    },
+    "spritesheet": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false,
+      "required": true
     }
   }
 }
