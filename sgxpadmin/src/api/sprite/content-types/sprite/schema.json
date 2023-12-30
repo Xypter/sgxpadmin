@@ -25,18 +25,36 @@
         "images"
       ]
     },
-    "author": {
-      "type": "string",
-      "required": true,
-      "maxLength": 30
-    },
     "spritesheet": {
-      "allowedTypes": [
-        "images"
-      ],
       "type": "media",
       "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "character": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::character.character",
+      "inversedBy": "sprites"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
       "required": true
+    },
+    "author": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::author.author",
+      "inversedBy": "sprites"
+    },
+    "game": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::game.game",
+      "inversedBy": "sprites"
     }
   }
 }
