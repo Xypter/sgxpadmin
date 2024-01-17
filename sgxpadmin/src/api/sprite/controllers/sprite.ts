@@ -33,4 +33,19 @@ module.exports = createCoreController('api::sprite.sprite', ({ strapi }) => ({
   
       return { data, meta };
     },
+
+    lifecycles: {
+      async findOne(ctx) {
+        const response = await super.findOne(ctx);
+    
+        await strapi.query("api::sprite.sprite")
+          .update({
+            where: { id: response.data.id },
+            data: { views: parseInt(response.data.attributes.views) + 1 }
+          });
+    
+        return response;
+      },
+    },
   }));
+

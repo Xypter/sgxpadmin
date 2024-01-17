@@ -768,6 +768,45 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
+export interface PluginSlugifySlug extends Schema.CollectionType {
+  collectionName: 'slugs';
+  info: {
+    singularName: 'slug';
+    pluralName: 'slugs';
+    displayName: 'slug';
+  };
+  options: {
+    draftAndPublish: false;
+    comment: '';
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
+  };
+  attributes: {
+    slug: Attribute.Text;
+    count: Attribute.Integer;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'plugin::slugify.slug',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'plugin::slugify.slug',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiAuthorAuthor extends Schema.CollectionType {
   collectionName: 'authors';
   info: {
@@ -931,6 +970,11 @@ export interface ApiSpriteSprite extends Schema.CollectionType {
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    versions: {
+      versioned: true;
+    };
+  };
   attributes: {
     title: Attribute.String &
       Attribute.Required &
@@ -970,6 +1014,15 @@ export interface ApiSpriteSprite extends Schema.CollectionType {
       'admin::user'
     > &
       Attribute.Private;
+    versions: Attribute.Relation<
+      'api::sprite.sprite',
+      'manyToMany',
+      'api::sprite.sprite'
+    >;
+    vuid: Attribute.String;
+    versionNumber: Attribute.Integer & Attribute.DefaultTo<1>;
+    versionComment: Attribute.String;
+    isVisibleInListView: Attribute.Boolean & Attribute.DefaultTo<true>;
   };
 }
 
@@ -991,6 +1044,7 @@ declare module '@strapi/types' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'plugin::slugify.slug': PluginSlugifySlug;
       'api::author.author': ApiAuthorAuthor;
       'api::character.character': ApiCharacterCharacter;
       'api::game.game': ApiGameGame;
